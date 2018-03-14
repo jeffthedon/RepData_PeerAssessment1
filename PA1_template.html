@@ -162,6 +162,7 @@ $(document).ready(function () {
 </ul></li>
 <li><a href="#question-3"><strong>Question 3</strong>:</a><ul>
 <li><a href="#are-there-differences-in-activity-patterns-between-weekdays-and-weekends"><strong><em>Are there differences in activity patterns between weekdays and weekends?</em></strong></a><ul>
+<li><a href="#question-3a-create-a-new-factor-variablei.eweek_type-in-the-dataset-with-two-levels--weekday-and-weekend-indicating-whether-a-given-date-is-a-weekday-or-weekend-day.">Question 3a: *“Create a new factor variable(i.e,”week_type“) in the dataset with two levels -”weekday&quot; and “weekend” indicating whether a given date is a weekday or weekend day.“*</a></li>
 <li><a href="#question-3b-make-a-panel-plot-containing-a-time-series-plot-i.e.type-l-of-the-5-minute-interval-x-axis-and-the-average-number-of-steps-taken-averaged-across-all-weekday-days-or-weekend-days-y-axis.-see-the-readme-file-in-the-github-repository-to-see-an-example-of-what-this-plot-should-look-like-using-simulated-data.">Question 3b: <em>“Make a panel plot containing a time series plot (i.e. type =”l“) of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). See the README file in the GitHub repository to see an example of what this plot should look like using simulated data.”</em></a></li>
 </ul></li>
 </ul></li>
@@ -198,7 +199,7 @@ library(Hmisc)</code></pre>
 download.file(fileurl, destfile = &quot;./activity.zip&quot;)
 date_of_download &lt;- date()
 print(date_of_download)</code></pre>
-<pre><code>## [1] &quot;Wed Mar 14 14:30:32 2018&quot;</code></pre>
+<pre><code>## [1] &quot;Wed Mar 14 14:53:49 2018&quot;</code></pre>
 <pre class="r"><code>unzip('activity.zip')
 data &lt;- read.csv(&quot;activity.csv&quot;, header = TRUE, stringsAsFactors = FALSE)
 str(data)</code></pre>
@@ -613,7 +614,9 @@ text(c(18, 18)
 <div id="are-there-differences-in-activity-patterns-between-weekdays-and-weekends" class="section level2">
 <h2><strong><em>Are there differences in activity patterns between weekdays and weekends?</em></strong></h2>
 <p>In order to answer this question succinctly, I have to make a factor variable within the dataset that has two levels, “weekday” and “weekend” respectivly. Doing so will indicate whether a given date in the dataset is a weekday or weekend day.<br />
-I will then calculate the mean of the variable <strong>sum_of_steps</strong> which is grouped according to the <strong>time of observation</strong> variable and the newly created <strong>week_type</strong> variable. Since there were no instructions as to which data should be used, I will be using the <em>dataset</em> with the missing values are replaced by a <em>single mean value</em>. ###Question 3a: *“Create a new factor variable(i.e,”week_type“) in the dataset with two levels -”weekday&quot; and “weekend” indicating whether a given date is a weekday or weekend day.“*</p>
+I will then calculate the mean of the variable <strong>sum_of_steps</strong> which is grouped according to the <strong>time of observation</strong> variable and the newly created <strong>week_type</strong> variable. Since there were no instructions as to which data should be used, I will be using the <em>dataset</em> with the missing values are replaced by a <em>single mean value</em>.</p>
+<div id="question-3a-create-a-new-factor-variablei.eweek_type-in-the-dataset-with-two-levels--weekday-and-weekend-indicating-whether-a-given-date-is-a-weekday-or-weekend-day." class="section level3">
+<h3>Question 3a: *“Create a new factor variable(i.e,”week_type“) in the dataset with two levels -”weekday&quot; and “weekend” indicating whether a given date is a weekday or weekend day.“*</h3>
 <pre class="r"><code>new_data &lt;- mutate(new_data
                    , week_type = ifelse(new_data$week_day == &quot;Sunday&quot; | new_data$week_day == &quot;Saturday&quot;
 , &quot;week_end&quot;
@@ -635,6 +638,7 @@ head(sum_imputed_by_interval_week_type)</code></pre>
 ## 5       10 week_day           5.09
 ## 6       10 week_end           4.62</code></pre>
 <p>I am going to make a visual representation to compare the activity level during weekdays(Monday - Friday) and weekends(Saturday &amp; Sunday) through the use of <strong>ggplot</strong> in <strong>Rstudio</strong>.</p>
+</div>
 <div id="question-3b-make-a-panel-plot-containing-a-time-series-plot-i.e.type-l-of-the-5-minute-interval-x-axis-and-the-average-number-of-steps-taken-averaged-across-all-weekday-days-or-weekend-days-y-axis.-see-the-readme-file-in-the-github-repository-to-see-an-example-of-what-this-plot-should-look-like-using-simulated-data." class="section level3">
 <h3>Question 3b: <em>“Make a panel plot containing a time series plot (i.e. type =”l“) of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). See the README file in the GitHub repository to see an example of what this plot should look like using simulated data.”</em></h3>
 <pre class="r"><code>time &lt;- ggplot(sum_imputed_by_interval_week_type

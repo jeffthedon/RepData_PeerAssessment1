@@ -56,7 +56,7 @@ print(date_of_download)
 ```
 
 ```
-## [1] "Wed Mar 14 14:30:32 2018"
+## [1] "Wed Mar 14 14:53:49 2018"
 ```
 
 ```r
@@ -101,7 +101,7 @@ head(data)
 ## 6    NA 2012-10-01       25
 ```
 
-###**Process/transform the data (if necessary) into a format suitable for your analysis**
+### **Process/transform the data (if necessary) into a format suitable for your analysis**
 Through examining the summary of the data above, we see that observations were recorded in *5 minute* increments on a *24 hour* period for *61* days.
 I transformed the data by adding multiple column variables to represent months(**months**), days of the week(**week_day**), and days of the year(**year_day**); all of which show at what time the data was recorded.  
 The observations were recorded from October 1, 2012 through November 30, 2012.  The Data Frame shows them as days of the year, i.e., the 274th to the 334th day in the Calendar Year.
@@ -130,9 +130,9 @@ head(data)
 ```
 After manipulating the data above, we can now answer:
 
-#**Question 1**:
+# **Question 1**:
 ## ***What is the mean total number of steps taken per day?***
-###Question 1a: *"Calculate the total number of steps taken per day"*
+### Question 1a: *"Calculate the total number of steps taken per day"*
 In order to answer this question, I first had to take the sum of the number of steps that were taken each of the 61 days of the observational period:
 
 
@@ -155,7 +155,7 @@ head(sum_by_year_day)
 ## 5           278        13294
 ## 6           279        15420
 ```
-###Question 1b: *"Make a histogram of the total number of steps taken each day"*
+### Question 1b: *"Make a histogram of the total number of steps taken each day"*
 I am representing the results by creating a histogram using the "base plotting system" in R.  This will show the **'frequency distribution'** of the total number of steps that were taken each day.  
 
 ```r
@@ -199,7 +199,7 @@ text(c(14, 14)
 ***Note:*** 
 I also added two vertical 'ablines' to showcase the **mean** and **median** that were calculated **below**.
 
-###Question 1c: *"Calculate and report the mean and median of the total number of steps taken per day"*
+### Question 1c: *"Calculate and report the mean and median of the total number of steps taken per day"*
 Then, to obtain the mean, I had to take the **sum** of the total number of steps taken daily for each of the days in the observation period and then **divide** it by the total number of days(61) in the observational period.
 
 ##### ***Of Particular Note:***
@@ -225,8 +225,8 @@ print(median_steps_per_day)
 ```
 ## [1] 10395
 ```
-#**Question 2:**
-##***What is the average daily activity pattern?***
+# **Question 2:**
+## ***What is the average daily activity pattern?***
 In order to succinctly answer this question, I had to **group** the *number of steps* that were taken according to the *five minute intervals* of observations for each day.  So as to improve the readability, I changed the **column** variable names to be more descriptive.
 
 ```r
@@ -254,7 +254,7 @@ print(step_mean_by_int)
 ## # ... with 278 more rows
 ```
 
-###Question 2a: *"Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)"*
+### Question 2a: *"Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)"*
 
 ```r
 plot(step_mean_by_int$interval/100
@@ -292,7 +292,7 @@ text(c(150)
 ***Note:***
 On the plot above, I showcased the **Maximum Steps**(represented by the 'abline') that were taken in a 5 minute interval observation, as well as the **time of day** in which those steps were taken.  Both of these results are produced by the code **below**.
 
-###Question 2b: *"Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?"*
+### Question 2b: *"Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?"*
 
 In order to answer this question, I had to determine what the highest **mean number of steps** were taken throughout the day.  I produced the results by taking the **mean** of the **total number of steps** taken for each of the **five-minute Interval** observations.
 
@@ -324,9 +324,9 @@ As previously stated, there are a number of observations that show **"NA"** valu
 
 I will show, with the examples listed below, how to take care of these *observations* so as to present a more clear picture of the true data as it is without **NA** values.
 
-##***Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NA's)***
+## ***Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NA's)***
 
-###*Percentage of Missing Values (NA's) in the dataset*
+### *Percentage of Missing Values (NA's) in the dataset*
 
 ```r
 sum(is.na(data))
@@ -466,7 +466,7 @@ table(na_df$week_day)
 ##       288       576         0       288       288       576       288
 ```
 
-##***Devise a strategy for filling in all of the missing values in the dataset.***
+## ***Devise a strategy for filling in all of the missing values in the dataset.***
 
 Before I actually perform my strategy for dealing with the NA's, I first want to make a copy of the data frame so as to preserve the integrity of the dataset before coercing changes to it:
 
@@ -486,13 +486,13 @@ head(new_data)
 ## 6    NA 2012-10-01       25 October   Monday      274
 ```
 
-###*HMisc*
+### *HMisc*
 [Imputating](http://www.dictionary.com/browse/impute) is defined as, "The act of attributing or ascribing." There are, of course, many ways to fill in the missing variables of a dataset.  I however have found that the impute function, which is part of the [Hmisc package](https://cran.r-project.org/web/packages/Hmisc/Hmisc.pdf) available at [Cran](https://cran.r-project.org/src/contrib/Hmisc_4.1-1.tar.gz), does the job very easily.
 As taken from the Hmisc pdf file, " The simple imputation method involves ???lling in NAs with constants, with a speci???ed single-valued function of the non-NAs, or from a sample (with replacement) from the non-NA values (this is useful in multiple imputation)."
 
-##**Create a new dataset that is equal to the original dataset but with the missing data filled in.**
+## **Create a new dataset that is equal to the original dataset but with the missing data filled in.**
 
-###*New Data Set with Missing Data Filled in*
+### *New Data Set with Missing Data Filled in*
 The following code exemplifies this process:
 
 ```r
@@ -567,7 +567,7 @@ print(median_imputed_steps_by_day)
 
 After the previous computations, I am now ready to complete the next step of the project and create a Histogram to showcase and highlight the mean and median values of the new data.
 
-##**Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day.** 
+## **Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day.** 
 
 ```r
 hist_2 <- hist(imputed_sum_by_year_day$sum_of_steps
@@ -609,7 +609,7 @@ text(c(18, 18)
 
 ![TRUE](PA1_template_files/figure-html/hist_2-1.png)
 
-###Histogram Question 1: *Do these values differ from the estimates from the first part of the assignment?* 
+### Histogram Question 1: *Do these values differ from the estimates from the first part of the assignment?* 
 
 Upon comparison of the two histograms, you can plainly see that the median and mean values of the **imputed values data frame** are much closer together.  This indicates that the distribution in the *sum_of_steps* variable have grown closer together. *Range*, or the minimum and maximum value, were not affected.  The values approximated by the mean that were imputed, increased in frequency, which was to be expected.
 
@@ -627,16 +627,18 @@ There are many different ways in which to handle missing data.  To decide how to
 
 Without knowing the exact reason for the missing values (NA) in the dataset, it is hard to decide on how to exactly handle the missing values.
 
-###Histogram Question 2: *What is the impact of imputing missing data on the estimates of the total daily number of steps?*
+### Histogram Question 2: *What is the impact of imputing missing data on the estimates of the total daily number of steps?*
 
 By imputing missing data, You will see that it is probable that it will distort the distribution of the variable, in this case the *daily number of steps*.  The impact of which, leads to complications with summary measures, i.e., underestimates the standard deviation. Mean imputation, as exemplified in the histogram example above, distorts the relationship between the variables, by "pulling" estimates of the correlation toward zero.
 
-#**Question 3**:
+# **Question 3**:
 ## ***Are there differences in activity patterns between weekdays and weekends?***
 In order to answer this question succinctly, I have to make a factor variable within the dataset that has two levels, "weekday" and "weekend" respectivly.  Doing so will indicate whether a given date in the dataset is a weekday or weekend day.  
 I will then calculate the mean of the variable **sum_of_steps** which is grouped according to the **time of observation** variable and the newly created **week_type** variable.
 Since there were no instructions as to which data should be used, I will be using the *dataset* with the missing values are replaced by a *single mean value*.
-###Question 3a: *"Create a new factor variable(i.e, "week_type") in the dataset with two levels - "weekday" and "weekend" indicating whether a given date is a weekday or weekend day."*
+
+### Question 3a: *"Create a new factor variable(i.e, "week_type") in the dataset with two levels - "weekday" and "weekend" indicating whether a given date is a weekday or weekend day."*
+
 
 ```r
 new_data <- mutate(new_data
@@ -666,7 +668,7 @@ head(sum_imputed_by_interval_week_type)
 
 I am going to make a visual representation to compare the activity level during weekdays(Monday - Friday) and weekends(Saturday & Sunday) through the use of **ggplot** in **Rstudio**.
 
-###Question 3b: *"Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). See the README file in the GitHub repository to see an example of what this plot should look like using simulated data."*
+### Question 3b: *"Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). See the README file in the GitHub repository to see an example of what this plot should look like using simulated data."*
 
 
 ```r
